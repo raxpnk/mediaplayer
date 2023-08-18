@@ -1,0 +1,77 @@
+<template>
+	<div class="newmain">
+		<div class=mainpage>
+			<div class="input-list-container">
+				<div class="in2">
+					<input type="text" value={searchval} class="input-button" placeholder="SEARCH AND FILTER HERE" onchange={handlesearch} />
+					<button onclick={filterclick} class="filters">⋮</button>
+					<div if:true={showDropdown}>
+						<button class="dropdown-buttons" onclick={filterbutton} value="Artist">ARTIST</button>
+						<button class="dropdown-buttons" onclick={filterbutton} value="Song">SONG</button>
+					</div>
+				</div>
+				<div class="listdiv">
+					<div for:each={array} for:item="obj" key={obj} onclick={handlemain}>
+						<button value={obj.Name} class={obj.songbutton} data-artist={obj.Artist__c} data-genre={obj.Genre__c} data-plays={obj.Plays__c}>
+            			{obj.Name}<p>{obj.Artist__c}</p>
+						</button>
+					</div>
+					<div for:each={artarray} for:item="obj" key={obj} onclick={handlemain2}>
+						<button value={obj.Name} class={obj.mainbutton} data-genre={obj.Genre__c}>
+            			{obj.Name}☑️<p>{obj.Genre__c}</p>
+						</button>
+					</div>
+				</div>
+			</div>
+
+			<div class="songdiv">
+				<div class="bgimage" style={bgstyle} if:true={finalimage}></div>
+				<lightning-button label="load song" onclick={handlesongclick} if:true={loadsongbut}>
+				</lightning-button>
+				<lightning-button label="load song image" onclick={handleimageclick} if:true={loadsongbut}>
+				</lightning-button>
+				<div class="topbuttonclass">
+					<button class="topbuttons">U</button>
+					<div if:true={showheart}>
+						<button class={topbuttonstyle} onclick={heartclick}>🖤</button>
+					</div>
+				</div>
+				<div class="songnameup2" if:true={shownames}>
+					<div class="bgimage2" style={bgstyle2}>
+						<p></p>
+					</div>
+					<div class="songnameup">
+						<p class="artistnames1">{songnameupcase}</p>
+						<div class="insider2">
+							<p class="artistnames2">{artistname}</p>
+							<p class="artistnames4">©</p>
+							<p class="artistnames3">{songgenre}</p>
+							<p class="artistnames3">{songplays}</p>
+						</div>
+					</div>
+				</div>
+				<div class="related">
+					<p class="qtext">NEXT IN QUEUE</p>
+					<div for:each={relatedarr} for:item="obj" key={obj} onclick={handlemain}>
+						<button value={obj.Name} class="songbutton3" data-artist={obj.Artist__c} data-genre={obj.Genre__c} data-plays={obj.Plays__c}>
+            				<div class="insider">
+								<p>{obj.Name}</p><p class="insider-text">ARTIST-{obj.Artist__c}</p>
+								<p class="insider-text">GENRE:{obj.Genre__c}</p><p class="insider-text">PLAYS:{obj.Plays__c}</p>
+            				</div>
+						</button>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="audiocom">
+			<button onclick={handleBackClick} if:true={showaudio} class="loopclass">🢀</button>
+			<button onclick={handleAudioEnded} if:true={showaudio} class="loopclass">🢂</button>
+			<audio autoplay controls loop={loopaudio} if:true={showaudio} src={mainurl1} class="audio1"
+				id="audioplayer">
+			</audio>
+			<button onclick={handleReplay} if:true={showaudio} class="loopclass">↺</button>
+			<button onclick={handleloop} if:true={showaudio} class={loopstyle}>ꝏ</button>
+		</div>
+	</div>
+</template>
