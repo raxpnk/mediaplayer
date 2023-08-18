@@ -1,1 +1,2 @@
 # mediaplayer
+musicplayer (static res)
